@@ -18,14 +18,14 @@ namespace PDFShelf.Api.Endpoints
                     var canConnect = await context.Database.CanConnectAsync();
 
                     if (!canConnect)
-                        return Results.Problem("❌ Não foi possível conectar ao banco de dados.", statusCode: 500);
+                        return Results.Problem("Não foi possível conectar ao banco de dados.", statusCode: 500);
 
                     // Conta quantos planos existem (os seeds devem estar lá)
                     var planCount = await context.Plans.CountAsync();
 
                     return Results.Ok(new
                     {
-                        message = "✅ Conexão com o banco bem-sucedida!",
+                        message = "Conexão com o banco bem-sucedida!",
                         plansFound = planCount
                     });
                 }

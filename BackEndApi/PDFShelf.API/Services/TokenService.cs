@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic;
 using PDFShelf.Api.Models;
 
 namespace PDFShelf.Api.Services
@@ -11,7 +12,7 @@ namespace PDFShelf.Api.Services
         private readonly string _privateKey;
         public TokenService(IConfiguration config)
         {
-            _privateKey = config["Jwt:PrivateKey"] ?? throw new ArgumentNullException("Jwt:PrivateKey");
+            _privateKey = config["Jwt:Key"] ?? throw new ArgumentNullException("Jwt:Key");
         }
 
         public string Generate(User user)
@@ -23,8 +24,9 @@ namespace PDFShelf.Api.Services
 
             var claims = new List<Claim>
             {
-                new(ClaimTypes.Name, user.Email),
-                new("UserId", user.Id.ToString())
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role ?? "User")
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -36,6 +38,39 @@ namespace PDFShelf.Api.Services
 
             var token = handler.CreateToken(tokenDescriptor);
             return handler.WriteToken(token);
+        }
+
+        public Guid GetUserIdFromToken(string token)
+        {
+            if (string.IsNullOrWhiteSpace(token))
+                throw new Exception("Token não fornecido.");
+
+            JwtSecurityToken jwt;
+
+            try
+            {
+                jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Falha ao ler o token JWT. Erro: {ex.Message}");
+            }
+
+            var claim = jwt.Claims.FirstOrDefault(c => c.Type == "nameid");
+
+            if (claim == null)
+                throw new Exception("Claim 'nameid' não encontrada no token.");
+
+            if (!Guid.TryParse(claim.Value, out Guid userId))
+                throw new Exception("O valor da claim 'nameid' não é um GUID válido.");
+
+            return userId;
+        }
+
+        public string? GetUserRoleFromToken(string token)
+        {
+            var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
+            return jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
         }
     }
 }

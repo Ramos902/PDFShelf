@@ -28,6 +28,6 @@ namespace PDFShelf.Api.Models
         public ICollection<PdfFile>? Pdfs { get; set; }
         public ICollection<PdfFile>? Annotations { get; set; }
         public ICollection<PdfFile>? SharesGiven { get; set; }
-        public ICollection<PdfFile>? SharesReceived { get; set; }
+        public ICollection<PdfFile>? SharesReceived { get; set; } 
     }
 }

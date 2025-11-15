@@ -1,8 +1,6 @@
-namespace PDFShelf.Api.DTOs
+namespace PDFShelf.Api.DTOs;
+public record UserLoginDto
 {
-    public class UserLoginDto
-    {
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-    }
+    public string Email { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
 }
