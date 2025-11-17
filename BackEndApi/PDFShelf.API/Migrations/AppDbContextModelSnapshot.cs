@@ -22,41 +22,63 @@ namespace PDFShelf.API.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PDFShelf.Api.Models.PdfFile", b =>
+            modelBuilder.Entity("PDFShelf.Api.Models.Pdfs", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("FileHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("character varying(1024)");
+
+                    b.Property<double>("FileSizeMB")
+                        .HasColumnType("double precision");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("OriginalFileName")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<int>("PageCount")
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("ThumbnailUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("character varying(2048)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("UserId1")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("UserId2")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("UserId3")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
-
-                    b.HasIndex("UserId2");
-
-                    b.HasIndex("UserId3");
-
-                    b.ToTable("PdfFile");
+                    b.ToTable("Pdfs");
                 });
 
             modelBuilder.Entity("PDFShelf.Api.Models.Plan", b =>
@@ -81,7 +103,8 @@ namespace PDFShelf.API.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<double>("StorageLimitMB")
                         .HasColumnType("double precision");
@@ -172,23 +195,15 @@ namespace PDFShelf.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PDFShelf.Api.Models.PdfFile", b =>
+            modelBuilder.Entity("PDFShelf.Api.Models.Pdfs", b =>
                 {
-                    b.HasOne("PDFShelf.Api.Models.User", null)
-                        .WithMany("Annotations")
-                        .HasForeignKey("UserId");
-
-                    b.HasOne("PDFShelf.Api.Models.User", null)
+                    b.HasOne("PDFShelf.Api.Models.User", "User")
                         .WithMany("Pdfs")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("PDFShelf.Api.Models.User", null)
-                        .WithMany("SharesGiven")
-                        .HasForeignKey("UserId2");
-
-                    b.HasOne("PDFShelf.Api.Models.User", null)
-                        .WithMany("SharesReceived")
-                        .HasForeignKey("UserId3");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PDFShelf.Api.Models.User", b =>
@@ -209,13 +224,7 @@ namespace PDFShelf.API.Migrations
 
             modelBuilder.Entity("PDFShelf.Api.Models.User", b =>
                 {
-                    b.Navigation("Annotations");
-
                     b.Navigation("Pdfs");
-
-                    b.Navigation("SharesGiven");
-
-                    b.Navigation("SharesReceived");
                 });
 #pragma warning restore 612, 618
         }

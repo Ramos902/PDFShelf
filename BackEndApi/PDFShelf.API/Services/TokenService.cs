@@ -2,7 +2,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.VisualBasic;
 using PDFShelf.Api.Models;
 
 namespace PDFShelf.Api.Services
@@ -10,9 +9,18 @@ namespace PDFShelf.Api.Services
     public class TokenService
     {
         private readonly string _privateKey;
+        // --- CORREÇÃO 1: Adicionar campos para Issuer e Audience ---
+        private readonly string _issuer;
+        private readonly string _audience;
+
         public TokenService(IConfiguration config)
         {
+            // Pega a chave (como já fazia)
             _privateKey = config["Jwt:Key"] ?? throw new ArgumentNullException("Jwt:Key");
+            
+            // --- CORREÇÃO 2: Ler Issuer e Audience da configuração ---
+            _issuer = config["Jwt:Issuer"] ?? throw new ArgumentNullException("Jwt:Issuer");
+            _audience = config["Jwt:Audience"] ?? throw new ArgumentNullException("Jwt:Audience");
         }
 
         public string Generate(User user)
@@ -27,19 +35,25 @@ namespace PDFShelf.Api.Services
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, user.Role ?? "User")
+                // Nota: O 'Issuer' e 'Audience' não são 'Claims', são propriedades do Descriptor.
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddHours(2),
-                SigningCredentials = credentials
+                SigningCredentials = credentials,
+
+                // --- CORREÇÃO 3: Adicionar Issuer e Audience ao token ---
+                Issuer = _issuer,
+                Audience = _audience
             };
 
             var token = handler.CreateToken(tokenDescriptor);
             return handler.WriteToken(token);
         }
 
+        // ... (O resto dos seus métodos, como GetUserIdFromToken, estão corretos e não precisam mudar)
         public Guid GetUserIdFromToken(string token)
         {
             if (string.IsNullOrWhiteSpace(token))
@@ -49,6 +63,8 @@ namespace PDFShelf.Api.Services
 
             try
             {
+                // Nota: O ReadJwtToken NÃO valida o token, só lê.
+                // A validação real é feita pelo middleware [Authorize]
                 jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
             }
             catch (Exception ex)

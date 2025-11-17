@@ -9,7 +9,7 @@ public class AppDbContext : DbContext
 
     public DbSet<User> Users => Set<User>();
     public DbSet<Plan> Plans => Set<Plan>();
-
+    public DbSet<Pdfs> Pdfs => Set<Pdfs>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

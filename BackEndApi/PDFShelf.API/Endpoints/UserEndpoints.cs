@@ -59,7 +59,7 @@ namespace PDFShelf.Api.Endpoints
             .WithDescription("Verifica o e-mail e senha, e retorna um token JWT de autenticação.")
             .WithOpenApi();
 
-            group.MapPost("/update/{id}", async (Guid id, AppDbContext db, PasswordHasher hasher, TokenService tokenService, HttpContext http, UserUpdateDto request) =>
+            group.MapPut("/update/{id}", async (Guid id, AppDbContext db, PasswordHasher hasher, TokenService tokenService, HttpContext http, UserUpdateDto request) =>
             {
                 var token = http.Request.Headers["Authorization"]
                     .ToString()

@@ -32,6 +32,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<PasswordHasher>();
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<IFileStorageService, LocalStorageService>();
+
 //Adiciona controladores e endpoints    
 builder.Services.AddControllers();
 //Swagger
@@ -95,6 +97,7 @@ var app = builder.Build();
 //Mapeia endpoints
 app.MapTestDbEdnpoints();
 app.MapUserEndpoints();
+app.MapPdfEndpoints();
 
 //Using CORS
 app.UseCors("AllowAngularApp"); 

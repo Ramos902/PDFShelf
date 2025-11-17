@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PDFShelf.Api.Models
 {
@@ -6,28 +7,56 @@ namespace PDFShelf.Api.Models
     {
         [Key]
         public Guid Id { get; set; }
-        [Required, MaxLength(100)]
+
+        [Required(ErrorMessage = "O nome é obrigatório.")]
+        [MaxLength(100)]
         public string Name { get; set; } = string.Empty;
-        [Required, MaxLength(100)]
+
+        [Required(ErrorMessage = "O e-mail é obrigatório.")]
+        [MaxLength(100)]
         public string Email { get; set; } = string.Empty;
+
         [Required]
         public string PasswordHash { get; set; } = string.Empty;
-        //Role: "User", "Admin", etc.
-        [Required, MaxLength(50)]
-        public string Role { get; set; } = "User";
-        // Foreign key to Plan 
-        public int PlanId { get; set; } = 1; // default to Free plan id seed = 1
-        public Plan? Plan { get; set; }
-        // Storage usage tracking (in MB)
-        public double UsedStorageMB { get; set; } = 0.0;
-        public bool IsActive { get; set; } = true;
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime? LastLogin { get; set; }
 
-        // Navegação (opcional)
-        public ICollection<PdfFile>? Pdfs { get; set; }
-        public ICollection<PdfFile>? Annotations { get; set; }
-        public ICollection<PdfFile>? SharesGiven { get; set; }
-        public ICollection<PdfFile>? SharesReceived { get; set; } 
+        [Required(ErrorMessage = "A role é obrigatória.")]
+        [MaxLength(50)]
+        public string Role { get; set; } = "User";
+        
+        [Required]
+        public int PlanId { get; set; } = 1; 
+
+        [ForeignKey("PlanId")]
+        public Plan? Plan { get; set; }
+        
+        [Required]
+        public double UsedStorageMB { get; set; } = 0.0;
+        
+        [Required]
+        public bool IsActive { get; set; } = true;
+        
+        [Required]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        
+        public DateTime? LastLogin { get; set; } // Nullable, não é obrigatório
+
+        // --- Propriedades de Navegação (Relações) ---
+        
+        // CORREÇÃO: O tipo da coleção é "Pdf", não "Pdfs"
+        // [InverseProperty] diz ao EF qual propriedade no modelo "Pdf"
+        // aponta de volta para este User (no caso, a propriedade "User")
+        [InverseProperty("User")]
+        public ICollection<Pdfs>? Pdfs { get; set; }
+
+        /*
+        [InverseProperty("User")]
+        //public ICollection<PdfAnnotation>? PdfAnnotations { get; set; }
+
+        [InverseProperty("SharedByUser")]
+        public ICollection<Share>? SharesGiven { get; set; }
+
+        [InverseProperty("SharedWithUser")]
+        public ICollection<Share>? SharesReceived { get; set; }
+        */
     }
 }
