@@ -45,7 +45,7 @@ export class LoginComponent {
         // Sucesso!
         console.log('Login bem-sucedido!', response);
         // Redireciona para o "dashboard" (que criaremos em breve)
-        this.router.navigate(['/']);
+        this.router.navigate(['/shelf']);
       },
       error: (err) => {
         // Erro!

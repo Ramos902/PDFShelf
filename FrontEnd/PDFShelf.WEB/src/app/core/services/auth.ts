@@ -4,6 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { AuthResponse } from '../models/auth-response.model';
 import { User } from '../models/user-model';
 import { UserLoginDto } from '../models/user-model';
+import { environment } from '../../../environments/environment'; // 1. Importe
 
 // Chave para salvar o token no localStorage
 const TOKEN_KEY = 'pdfshelf_token';
@@ -20,7 +21,8 @@ const USER_KEY = 'pdfshelf_user';
 export class AuthService {
   
   // URL da API de usuários
-  private apiUrl = 'http://localhost:5212/api/users';
+  //private apiUrl = '${enviroment.apiUrl}/users';
+  private apiUrl = environment.apiUrl + "/users";
 
   // State Signals (Estado reativo)
   public currentUser = signal<User | null>(this.getUserFromStorage());

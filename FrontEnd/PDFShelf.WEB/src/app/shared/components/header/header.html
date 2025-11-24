@@ -1,0 +1,23 @@
+<header class="main-header">
+  <nav class="navbar">
+    <a class="navbar-brand" routerLink="/">
+      PDFShelf
+    </a>
+
+    <div class="navbar-nav">
+      <!-- Se o usuário NÃO estiver logado -->
+      <ng-container *ngIf="!isAuthenticated()">
+        <a class="nav-link btn btn-primary" routerLink="/auth/login">Login</a>
+      </ng-container>
+
+      <!-- Se o usuário ESTIVER logado -->
+      <ng-container *ngIf="isAuthenticated()">
+        <span class="navbar-text">
+          Olá, {{ currentUser()?.name }}
+        </span>
+        <a class="nav-link" routerLink="/shelf">Minha Estante</a>
+        <button class="nav-link btn btn-danger" (click)="logout()">Sair</button>
+      </ng-container>
+    </div>
+  </nav>
+</header>
