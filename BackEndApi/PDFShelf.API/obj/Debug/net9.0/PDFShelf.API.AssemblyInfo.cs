@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PDFShelf.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ebf7f4fded6bf65d047505b38fab5eef3cf11be7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a8f6f4d530343ed3947323f7feedc0e5c0812b03")]
 [assembly: System.Reflection.AssemblyProductAttribute("PDFShelf.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PDFShelf.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

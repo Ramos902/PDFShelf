@@ -1,1 +1,58 @@
+<div class="login-container">
+  <div class="login-box">
+    <h1 class="login-title">Crie sua Conta</h1>
+    <p class="login-subtitle">Comece a organizar seus PDFs agora mesmo</p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <!-- Campo de Nome -->
+      <div class="form-field">
+        <label for="name">Nome</label>
+        <input id="name" type="text" formControlName="name" placeholder="Seu nome completo"
+               [class.invalid]="isFieldInvalid('name')">
+        @if (isFieldInvalid('name')) {
+          <small class="error-message">{{ getErrorMessage('name') }}</small>
+        }
+      </div>
+
+      <!-- Campo de E-mail -->
+      <div class="form-field">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" formControlName="email" placeholder="seu.email@exemplo.com"
+               [class.invalid]="isFieldInvalid('email')">
+        @if (isFieldInvalid('email')) {
+          <small class="error-message">{{ getErrorMessage('email') }}</small>
+        }
+      </div>
+
+      <!-- Campo de Senha -->
+      <div class="form-field">
+        <label for="password">Senha</label>
+        <input id="password" type="password" formControlName="password" placeholder="Mínimo 6 caracteres"
+               [class.invalid]="isFieldInvalid('password')">
+        @if (isFieldInvalid('password')) {
+          <small class="error-message">{{ getErrorMessage('password') }}</small>
+        }
+      </div>
+
+      <!-- Mensagem de Erro da API -->
+      @if (apiError) {
+        <div class="api-error">
+          {{ apiError }}
+        </div>
+      }
+
+      <!-- Botão de Enviar -->
+      <button type="submit" class="submit-button" [disabled]="registerForm.invalid">
+        Criar Conta
+      </button>
+
+    </form>
+
+    <div class="register-link">
+      <p>Já tem uma conta? <a routerLink="/auth/login">Faça o login</a></p>
+    </div>
+
+  </div>
+</div>
 <p>register works!</p>

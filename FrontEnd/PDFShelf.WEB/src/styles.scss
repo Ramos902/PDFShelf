@@ -1,5 +1,70 @@
-/* You can add global styles to this file, and also import other style files */
+// 1. Importa as variáveis SCSS
+@use '../src/styles/styles-global.scss' as *;
 
-*{
-    margin: 0;
+// 2. Define as Variáveis CSS Globais (:root)
+// Isso torna as cores acessíveis em TODO o site usando var(--nome-da-cor)
+:root {
+  --cor-primaria: #{map-get($paleta, primaria)};
+  --cor-primaria-dark: #{map-get($paleta, primaria-dark)};
+  --cor-destaque: #{map-get($paleta, destaque)};
+  
+  --cor-fundo: #{map-get($paleta, fundo-principal)};
+  --cor-fundo-secundario: #{map-get($paleta, fundo-secundario)};
+  
+  --cor-texto: #{map-get($paleta, texto-principal)};
+  --cor-texto-secundario: #{map-get($paleta, texto-secundario)};
+  --cor-borda: #{map-get($paleta, borda-suave)};
+  
+  --sombra-padrao: #{map-get($paleta, sombra)};
+  --cor-aviso: #{map-get($paleta, aviso)};
+  --cor-erro: #{map-get($paleta, erro)};
+
+  // Fontes Globais
+  --fonte-titulo: 'Merriweather', 'Georgia', serif;
+  --fonte-corpo: 'Inter', 'Segoe UI', sans-serif;
+}
+
+// 3. Reset Global e Estilos Base
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--fonte-corpo);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+// Títulos sempre usam a fonte serifada
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fonte-titulo);
+  color: var(--cor-primaria);
+  margin-top: 0;
+}
+
+// Links padrão
+a {
+  color: var(--cor-primaria);
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Utilitários de Botão (opcional, para uso global)
+.btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  font-family: var(--fonte-corpo);
 }

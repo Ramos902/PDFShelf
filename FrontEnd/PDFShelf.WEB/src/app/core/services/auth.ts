@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { AuthResponse } from '../models/auth-response.model';
 import { User } from '../models/user-model';
-import { UserLoginDto } from '../models/user-model';
+import { UserLoginDto, UserRegisterDto } from '../models/user-model';
 import { environment } from '../../../environments/environment'; // 1. Importe
 
 // Chave para salvar o token no localStorage
@@ -34,6 +34,18 @@ export class AuthService {
   login(credentials: UserLoginDto): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
       tap(response => {
+        this.saveStorage(response.token, response.user);
+        this.currentUser.set(response.user);
+        this.isAuthenticated.set(true);
+            })
+    );
+  }
+
+  // Método de Registro
+  register(credentials: UserRegisterDto): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, credentials).pipe(
+      tap(response => {
+        // Após o registro, o usuário já vem autenticado
         this.saveStorage(response.token, response.user);
         this.currentUser.set(response.user);
         this.isAuthenticated.set(true);
