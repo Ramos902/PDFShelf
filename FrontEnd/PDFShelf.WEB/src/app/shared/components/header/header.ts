@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'app-header',

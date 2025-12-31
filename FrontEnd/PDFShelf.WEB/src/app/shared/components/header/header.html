@@ -1,22 +1,25 @@
-<header class="main-header">
-  <nav class="navbar">
-    <a class="navbar-brand" routerLink="/">
+<header class="w-full border-b bg-background">
+  <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
+    <a routerLink="/" class="text-xl font-semibold tracking-tight text-foreground hover:opacity-80">
       PDFShelf
     </a>
-
-    <div class="navbar-nav">
-      <!-- Se o usuário NÃO estiver logado -->
+    <div class="flex items-center gap-4">
       <ng-container *ngIf="!isAuthenticated()">
-        <a class="nav-link btn btn-primary" routerLink="/auth/login">Login</a>
+        <a routerLink="/auth/login" hlmBtn variant="default" size="sm">
+          Login
+        </a>
       </ng-container>
 
-      <!-- Se o usuário ESTIVER logado -->
       <ng-container *ngIf="isAuthenticated()">
-        <span class="navbar-text">
-          Olá, {{ currentUser()?.name }}
+        <span class="text-sm text-muted-foreground">
+          Olá, <strong>{{ currentUser()?.name }}</strong>
         </span>
-        <a class="nav-link" routerLink="/shelf">Minha Estante</a>
-        <button class="nav-link btn btn-danger" (click)="logout()">Sair</button>
+        <a routerLink="/shelf" hlmBtn variant="ghost" size="sm">
+          Minha Estante
+        </a>
+        <button hlmBtn variant="destructive" size="sm" (click)="logout()">
+          Sair
+        </button>
       </ng-container>
     </div>
   </nav>

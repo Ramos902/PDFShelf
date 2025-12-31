@@ -1,10 +1,24 @@
-<div class="landing-container">
-  <header>
-    <h1>Bem-vindo ao PDFShelf</h1>
-    <p>Sua estante de PDFs pessoal na nuvem.</p>
+<div class="min-h-screen flex flex-col items-center justify-center bg-background text-foreground px-6">
+  <header class="max-w-2xl text-center space-y-4">
+    <h1 class="text-4xl sm:text-5xl font-bold tracking-tight">
+      Bem-vindo ao <span class="text-primary">PDFShelf</span>
+    </h1>
+
+    <p class="text-lg text-muted-foreground">
+      Sua estante de PDFs pessoal na nuvem. Organize, acesse e gerencie seus
+      arquivos de qualquer lugar.
+    </p>
   </header>
-  <main>
-    <a routerLink="/auth/login" class="btn btn-primary">Acessar minha estante</a>
-    <a routerLink="/auth/register" class="btn btn-secondary">Criar minha conta</a>
+
+  <main class="mt-10 flex flex-col sm:flex-row gap-4">
+    <a routerLink="/auth/login"
+      class="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring">
+      Acessar minha estante
+    </a>
+
+    <a routerLink="/auth/register"
+      class="inline-flex items-center justify-center rounded-md border border-border bg-background px-6 py-3 text-sm font-medium shadow-sm transition hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring">
+      Criar minha conta
+    </a>
   </main>
 </div>
