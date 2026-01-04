@@ -21,6 +21,9 @@
           Sair
         </button>
       </ng-container>
+      <button (click)="themeService.toggleTheme()" class="p-3 rounded-lg border">
+        {{ themeService.isDark() ? '☀️' : '🌙' }}
+      </button>
     </div>
   </nav>
 </header>

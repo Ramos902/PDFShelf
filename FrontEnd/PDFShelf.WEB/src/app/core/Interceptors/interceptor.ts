@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AuthService } from '../services/auth'; // Ou '../services/auth' se seu arquivo for auth.ts
+import { AuthService } from '../services/auth/auth'; // Ou '../services/auth' se seu arquivo for auth.ts
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router'; 
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../core/services/auth'; // Certifique-se que o caminho para auth.service está correto
+import { AuthService } from '../../../core/services/auth/auth'; // Certifique-se que o caminho para auth.service está correto
 
 @Component({
   selector: 'app-layout',

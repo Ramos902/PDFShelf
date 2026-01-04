@@ -1,10 +1,10 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { AuthResponse } from '../models/auth-response.model';
-import { User } from '../models/user-model';
-import { UserLoginDto, UserRegisterDto } from '../models/user-model';
-import { environment } from '../../../environments/environment'; // 1. Importe
+import { AuthResponse } from '../../models/auth-response.model';
+import { User } from '../../models/user-model';
+import { UserLoginDto, UserRegisterDto } from '../../models/user-model';
+import { environment } from '../../../../environments/environment'; // 1. Importe
 
 // Chave para salvar o token no localStorage
 const TOKEN_KEY = 'pdfshelf_token';
