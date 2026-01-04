@@ -1,50 +1,32 @@
-<!-- 
-  Este 'wrapper' centraliza todo o conteúdo da página.
-  Usaremos o CSS (SCSS) da próxima etapa para fazer isso.
--->
-<div class="login-container">
-
+<div class="login-container max-w-2xl">
     <div class="login-box">
-        <!-- Título -->
-        <h1 class="login-title">PDFShelf</h1>
+        <h1 class="login-title">ReadShelf</h1>
         <p class="login-subtitle">Acesse sua prateleira de PDFs</p>
-
-        <!-- 
-      [formGroup] conecta este form ao 'loginForm' do .ts
-      (ngSubmit) chama o método 'onSubmit()' ao enviar
-    -->
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
-
-            <!-- Campo de E-mail -->
+            <!--Email-->
             <div class="form-field">
                 <label for="email">E-mail</label>
                 <input id="email" type="email" formControlName="email" placeholder="seu.email@exemplo.com"
                     [class.invalid]="isFieldInvalid('email')">
-                <!-- Mensagem de erro de validação -->
                 @if (isFieldInvalid('email')) {
                 <small class="error-message">{{ getErrorMessage('email') }}</small>
                 }
             </div>
-
-            <!-- Campo de Senha -->
+            <!--Password-->
             <div class="form-field">
                 <label for="password">Senha</label>
                 <input id="password" type="password" formControlName="password" placeholder="••••••••"
                     [class.invalid]="isFieldInvalid('password')">
-                <!-- Mensagem de erro de validação -->
                 @if (isFieldInvalid('password')) {
                 <small class="error-message">{{ getErrorMessage('password') }}</small>
                 }
             </div>
-
             <!-- Mensagem de Erro da API -->
             @if (apiError) {
             <div class="api-error">
                 {{ apiError }}
             </div>
             }
-
-            <!-- Botão de Enviar -->
             <button type="submit" class="submit-button" [disabled]="loginForm.invalid">
                 Entrar
             </button>
@@ -55,6 +37,5 @@
             <p>Não tem uma conta? <a>Registre-se</a></p>
             <!-- (Vamos fazer o registro funcionar no futuro) -->
         </div>
-
     </div>
 </div>

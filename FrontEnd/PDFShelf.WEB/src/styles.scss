@@ -5,75 +5,89 @@
 @import "@spartan-ng/brain/hlm-tailwind-preset.css";
 
 :root {
-color-scheme: light;
+    color-scheme: light;
 
---font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
---radius: 0.625rem;
---background: oklch(1 0 0);
---foreground: oklch(0.145 0 0);
---card: oklch(1 0 0);
---card-foreground: oklch(0.145 0 0);
---popover: oklch(1 0 0);
---popover-foreground: oklch(0.145 0 0);
---primary: oklch(0.205 0 0);
---primary-foreground: oklch(0.985 0 0);
---secondary: oklch(0.97 0 0);
---secondary-foreground: oklch(0.205 0 0);
---muted: oklch(0.97 0 0);
---muted-foreground: oklch(0.556 0 0);
---accent: oklch(0.97 0 0);
---accent-foreground: oklch(0.205 0 0);
---destructive: oklch(0.577 0.245 27.325);
---border: oklch(0.922 0 0);
---input: oklch(0.922 0 0);
---ring: oklch(0.708 0 0);
---sidebar: oklch(0.985 0 0);
---sidebar-foreground: oklch(0.145 0 0);
---sidebar-primary: oklch(0.205 0 0);
---sidebar-primary-foreground: oklch(0.985 0 0);
---sidebar-accent: oklch(0.97 0 0);
---sidebar-accent-foreground: oklch(0.205 0 0);
---sidebar-border: oklch(0.922 0 0);
---sidebar-ring: oklch(0.708 0 0);
+    --radius: 0.625rem;
+
+    /* Modo Claro */
+    --background: #FAFAF5;
+    --foreground: #2D3A30;
+    --card: #FFFFFF;
+    --card-foreground: #2D3A30;
+    --popover: #FFFFFF;
+    --popover-foreground: #2D3A30;
+    --primary: #557C55;
+    --primary-foreground: #FFFFFF;
+    --secondary: #F0F0EB;
+    --secondary-foreground: #2D3A30;
+    --muted: #F0F0EB;
+    --muted-foreground: #5C6B5D;
+    --accent: #A6CF98;
+    --accent-foreground: #2D3A30;
+    --destructive: #C0392B;
+    --border: rgba(85, 124, 85, 0.2);
+    --input: rgba(85, 124, 85, 0.2);
+    --ring: #557C55;
+
+    /* Sidebar (se você usa) */
+    --sidebar: #F0F0EB;
+    --sidebar-foreground: #2D3A30;
+    --sidebar-primary: #557C55;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #A6CF98;
+    --sidebar-accent-foreground: #2D3A30;
+    --sidebar-border: rgba(85, 124, 85, 0.2);
+    --sidebar-ring: #557C55;
 }
 
 :root.dark {
-color-scheme: dark;
+    color-scheme: dark;
 
---background: oklch(0.145 0 0);
---foreground: oklch(0.985 0 0);
---card: oklch(0.205 0 0);
---card-foreground: oklch(0.985 0 0);
---popover: oklch(0.205 0 0);
---popover-foreground: oklch(0.985 0 0);
---primary: oklch(0.922 0 0);
---primary-foreground: oklch(0.205 0 0);
---secondary: oklch(0.269 0 0);
---secondary-foreground: oklch(0.985 0 0);
---muted: oklch(0.269 0 0);
---muted-foreground: oklch(0.708 0 0);
---accent: oklch(0.269 0 0);
---accent-foreground: oklch(0.985 0 0);
---destructive: oklch(0.704 0.191 22.216);
---border: oklch(1 0 0 / 10%);
---input: oklch(1 0 0 / 15%);
---ring: oklch(0.556 0 0);
---sidebar: oklch(0.205 0 0);
---sidebar-foreground: oklch(0.985 0 0);
---sidebar-primary: oklch(0.985 0 0);
---sidebar-primary-foreground: oklch(0.205 0 0);
---sidebar-accent: oklch(0.269 0 0);
---sidebar-accent-foreground: oklch(0.985 0 0);
---sidebar-border: oklch(1 0 0 / 10%);
---sidebar-ring: oklch(0.556 0 0);
+    /* Modo Escuro */
+    --background: #1E241E;
+    --foreground: #E0E8D8;
+    --card: #252C25;
+    --card-foreground: #E0E8D8;
+    --popover: #252C25;
+    --popover-foreground: #E0E8D8;
+    --primary: #6B8E6B;
+    --primary-foreground: #1E241E;
+    --secondary: #252C25;
+    --secondary-foreground: #E0E8D8;
+    --muted: #252C25;
+    --muted-foreground: #A8B8A0;
+    --accent: #B8E0A8;
+    --accent-foreground: #1E241E;
+    --destructive: #E74C3C;
+    --border: rgba(107, 142, 107, 0.3);
+    --input: rgba(107, 142, 107, 0.3);
+    --ring: #6B8E6B;
+
+    /* Sidebar no modo escuro */
+    --sidebar: #252C25;
+    --sidebar-foreground: #E0E8D8;
+    --sidebar-primary: #6B8E6B;
+    --sidebar-primary-foreground: #1E241E;
+    --sidebar-accent: #B8E0A8;
+    --sidebar-accent-foreground: #1E241E;
+    --sidebar-border: rgba(107, 142, 107, 0.3);
+    --sidebar-ring: #6B8E6B;
+}
+
+*,
+*::before,
+*::after {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 @layer base {
-* {
-@apply border-border outline-ring/50;
-}
-body {
-@apply bg-background text-foreground;
-}
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
 }
